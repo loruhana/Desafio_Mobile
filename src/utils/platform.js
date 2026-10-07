@@ -20,3 +20,17 @@ export function byText(text) {
 }
 
 export const el = (locator) => $(resolve(locator));
+
+/**
+ * Rola a tela até o elemento com o accessibility id informado ficar visível.
+ * Necessário em telas pequenas, onde o Android não expõe elementos fora da área visível.
+ */
+export async function scrollToAccessibilityId(id) {
+  if (driver.isIOS) {
+    await driver.execute('mobile: scroll', { direction: 'down', predicateString: `name == "${id}"` });
+  } else {
+    await $(
+      `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().description("${id}"))`
+    );
+  }
+}

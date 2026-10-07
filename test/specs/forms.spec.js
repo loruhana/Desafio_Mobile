@@ -53,7 +53,7 @@ describe('Formulários (tela Forms)', () => {
     expect(await formsScreen.isSwitchOn()).to.equal(true);
     expect(await formsScreen.selectedOption()).to.equal(option);
 
-    await formsScreen.activeButton.click();
+    await formsScreen.tapActiveButton();
     const { title, message } = await alert.read();
     expect(title).to.equal(data.activeButtonAlert.title);
     expect(message).to.equal(data.activeButtonAlert.message);
@@ -61,7 +61,7 @@ describe('Formulários (tela Forms)', () => {
   });
 
   it('CT14 - não deve exibir alerta ao tocar no botão Inactive', async () => {
-    await formsScreen.inactiveButton.click();
+    await formsScreen.tapInactiveButton();
     expect(await alert.appearsWithin(2000)).to.equal(false);
     expect(await formsScreen.isShown()).to.equal(true);
   });

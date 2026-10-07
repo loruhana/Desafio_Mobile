@@ -1,5 +1,5 @@
 import BaseScreen from './base.screen.js';
-import { el } from '../utils/platform.js';
+import { el, scrollToAccessibilityId } from '../utils/platform.js';
 import { FORMS } from '../locators/forms.locators.js';
 import { SCREENS } from '../locators/navigation.locators.js';
 import navigation from './components/navigation.component.js';
@@ -63,6 +63,17 @@ class FormsScreen extends BaseScreen {
 
   async selectedOption() {
     return this.dropdownValue.getText();
+  }
+
+  // Os botões ficam no fim do formulário: em telas pequenas é preciso rolar até eles.
+  async tapActiveButton() {
+    await scrollToAccessibilityId(FORMS.activeButton.slice(1));
+    await this.activeButton.click();
+  }
+
+  async tapInactiveButton() {
+    await scrollToAccessibilityId(FORMS.inactiveButton.slice(1));
+    await this.inactiveButton.click();
   }
 }
 
